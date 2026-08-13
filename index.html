@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>So'zlar · Tarjimon Kartalar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0b0c;
+    --bg-elev: #141416;
+    --bg-elev-2: #1c1c1f;
+    --ink: #f3f2ee;
+    --ink-dim: #a7a6a2;
+    --line: #2a2a2d;
+    --turquoise: #3aafa9;
+    --turquoise-dim: #235c58;
+    --gold: #d4a72c;
+    --terracotta: #c9683f;
+    --danger: #c25454;
+    --shadow: 0 20px 50px -20px rgba(0,0,0,0.6);
+    --radius: 18px;
+  }
+  [data-theme="light"]{
+    --bg: #faf9f6;
+    --bg-elev: #ffffff;
+    --bg-elev-2: #f1efe9;
+    --ink: #16181c;
+    --ink-dim: #6b6a66;
+    --line: #e3e0d8;
+    --turquoise: #1f8b85;
+    --turquoise-dim: #cfe9e7;
+    --gold: #a9821f;
+    --terracotta: #b45633;
+    --danger: #a63f3f;
+    --shadow: 0 20px 50px -25px rgba(20,20,20,0.25);
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    transition: background .35s ease, color .35s ease;
+    min-height:100vh;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 8% 12%, var(--turquoise-dim) 0, transparent 40%),
+      radial-gradient(circle at 92% 88%, rgba(212,167,44,0.10) 0, transparent 45%);
+    opacity:.5;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{ position:relative; z-index:1; max-width: 780px; margin:0 auto; padding: 28px 20px 80px; }
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom: 26px;
+    gap: 12px; flex-wrap:wrap;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:42px; height:42px; border-radius:12px;
+    background: linear-gradient(145deg, var(--turquoise), var(--turquoise-dim));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family:'Fraunces', serif; font-weight:700; font-size:20px;
+    box-shadow: var(--shadow);
+    flex-shrink:0;
+  }
+  .brand-text h1{
+    margin:0; font-family:'Fraunces', serif; font-weight:600; font-size:22px; letter-spacing:.2px;
+  }
+  .brand-text span{
+    display:block; font-size:12px; color: var(--ink-dim); letter-spacing:.08em; text-transform:uppercase; margin-top:2px;
+  }
+  .header-right{ display:flex; align-items:center; gap:10px; }
+  .streak-badge{
+    display:flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    background: var(--bg-elev); border:1px solid var(--line);
+    padding: 8px 13px; border-radius: 999px; color: var(--ink-dim);
+  }
+  .streak-badge b{ color: var(--gold); font-size:13px; }
+  .theme-toggle{
+    border:1px solid var(--line);
+    background: var(--bg-elev);
+    color: var(--ink);
+    width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:18px;
+    transition: transform .25s ease, background .25s ease;
+    flex-shrink:0;
+  }
+  .theme-toggle:hover{ transform: scale(1.06); }
+  .creator-btn{
+    border:1px solid var(--line);
+    background: var(--bg-elev);
+    color: var(--ink);
+    width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:17px;
+    transition: transform .25s ease, background .25s ease;
+    flex-shrink:0;
+  }
+  .creator-btn:hover{ transform: scale(1.06); }
+
+  /* ---------- Tabs ---------- */
+  nav.tabs{
+    display:flex; gap:6px;
+    background: var(--bg-elev);
+    border:1px solid var(--line);
+    border-radius: 14px;
+    padding: 5px;
+    margin-bottom: 22px;
+    overflow-x:auto;
+  }
+  nav.tabs button{
+    flex:1; white-space:nowrap;
+    border:none; background:transparent; color: var(--ink-dim);
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:13px;
+    letter-spacing:.03em;
+    padding:10px 8px; border-radius:10px; cursor:pointer;
+    transition: all .2s ease;
+  }
+  nav.tabs button.active{
+    background: var(--ink); color: var(--bg);
+  }
+  [data-theme="light"] nav.tabs button.active{ background: var(--ink); color:#fff; }
+
+  section.view{ display:none; animation: fadeUp .35s ease; }
+  section.view.active{ display:block; }
+  @keyframes fadeUp{ from{ opacity:0; transform: translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  /* ---------- Filter / mini tabs ---------- */
+  .filter-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:18px; }
+  .filter-row select{
+    background: var(--bg-elev); border:1px solid var(--line); color: var(--ink);
+    border-radius:10px; padding:9px 12px; font-family:'Manrope',sans-serif; font-size:13px;
+    cursor:pointer;
+  }
+  .mini-tabs{ display:flex; gap:4px; background: var(--bg-elev); border:1px solid var(--line); border-radius: 12px; padding: 4px; flex-wrap:wrap; }
+  .mini-tabs button{
+    border:none; background:transparent; color: var(--ink-dim);
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:12px;
+    padding:8px 12px; border-radius:8px; cursor:pointer; white-space:nowrap;
+    transition: all .2s ease;
+  }
+  .mini-tabs button.active{ background: var(--ink); color: var(--bg); }
+  [data-theme="light"] .mini-tabs button.active{ color:#fff; }
+
+  button.btn{
+    border:none; cursor:pointer; font-family:'Manrope',sans-serif; font-weight:700; font-size:14px;
+    padding: 13px 20px; border-radius: 12px;
+    transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
+  }
+  button.btn:active{ transform: translateY(1px) scale(.98); }
+  .btn-primary{ background: var(--ink); color: var(--bg); }
+  [data-theme="light"] .btn-primary{ color:#fff; }
+  .btn-primary:hover{ box-shadow: 0 8px 20px -8px rgba(0,0,0,.4); }
+  .btn-ghost{ background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn-ghost:hover{ background: var(--bg-elev-2); }
+  .btn-gold{ background: var(--gold); color:#1a1200; }
+  .btn-danger{ background: transparent; color: var(--danger); border:1px solid var(--danger); }
+  .btn-success{ background: var(--turquoise); color:#fff; }
+
+  /* ---------- Test ---------- */
+  .quiz-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px; }
+  .quiz-head h2{ font-family:'Fraunces',serif; font-weight:600; font-size:22px; margin:0; }
+  .score-pill{
+    font-family:'JetBrains Mono',monospace; font-size:13px;
+    background: var(--bg-elev); border:1px solid var(--line);
+    padding: 6px 14px; border-radius: 999px; color: var(--ink-dim);
+  }
+  .score-pill b{ color: var(--turquoise); }
+  .timer-bar{ height:6px; background: var(--bg-elev-2); border-radius:4px; overflow:hidden; margin-bottom:16px; }
+  .timer-bar span{ display:block; height:100%; background: var(--gold); transition: width 1s linear; }
+  .quiz-card{
+    background: var(--bg-elev); border:1px solid var(--line); border-radius: var(--radius);
+    padding: 30px 24px; text-align:center; box-shadow: var(--shadow); margin-bottom: 18px;
+  }
+  .quiz-word{ font-family:'Fraunces', serif; font-weight:600; font-size:32px; margin-bottom:4px; }
+  .quiz-sub{ font-size:12px; color: var(--ink-dim); letter-spacing:.1em; text-transform:uppercase; }
+  .options{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+  .option{
+    background: var(--bg-elev); border:1px solid var(--line); border-radius: 12px;
+    padding: 16px 12px; font-weight:600; font-size:15px; cursor:pointer; text-align:center;
+    transition: all .15s ease;
+  }
+  .option:hover{ border-color: var(--turquoise); }
+  .option.correct{ background: var(--turquoise); border-color: var(--turquoise); color:#fff; }
+  .option.wrong{ background: var(--danger); border-color: var(--danger); color:#fff; }
+  .option.disabled{ pointer-events:none; opacity:.6; }
+  .option.disabled.correct, .option.disabled.wrong{ opacity:1; }
+
+  .typing-row{ display:flex; gap:10px; }
+  .typing-row input{
+    flex:1; background: var(--bg); border:1px solid var(--line); border-radius: 12px;
+    padding: 14px; color: var(--ink); font-family:'Manrope',sans-serif; font-size:15px; text-align:center;
+  }
+  .typing-row input:focus{ outline:none; border-color: var(--turquoise); }
+  .typing-feedback{ margin-top:14px; font-size:14px; font-weight:600; text-align:center; }
+  .typing-feedback.ok{ color: var(--turquoise); }
+  .typing-feedback.bad{ color: var(--danger); }
+
+  .quiz-result{ text-align:center; padding: 40px 20px; }
+  .quiz-result .big-score{ font-family:'Fraunces',serif; font-size:56px; font-weight:700; color: var(--turquoise); }
+  .quiz-result p{ color: var(--ink-dim); margin-top:6px; }
+
+  .lock-quiz{ text-align:center; padding: 40px 20px; }
+  .lock-quiz .clock{ font-family:'Fraunces',serif; font-size:44px; font-weight:700; color: var(--danger); }
+  .lock-quiz p{ color: var(--ink-dim); font-size:13px; margin-top:10px; }
+
+  .listen-box{ display:flex; flex-direction:column; align-items:center; gap:14px; padding: 10px 0 4px; }
+  .listen-icon{
+    width:84px; height:84px; border-radius:50%;
+    background: linear-gradient(150deg, var(--turquoise), var(--turquoise-dim));
+    display:flex; align-items:center; justify-content:center;
+    font-size:32px; color:#fff; cursor:pointer; border:none;
+    box-shadow: var(--shadow);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.05);} }
+  .listen-replay{ font-size:12px; color: var(--ink-dim); }
+
+  /* ---------- Stats ---------- */
+  .stats-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:26px; }
+  .stat-box{ background: var(--bg-elev); border:1px solid var(--line); border-radius: 16px; padding: 20px; text-align:center; }
+  .stat-box .num{ font-family:'Fraunces',serif; font-size:32px; font-weight:700; color: var(--turquoise); }
+  .stat-box .lbl{ font-size:11px; color: var(--ink-dim); text-transform:uppercase; letter-spacing:.08em; margin-top:6px; }
+  .stats-sub h3{ font-family:'Fraunces',serif; font-weight:600; font-size:16px; margin: 0 0 12px; }
+  .cat-breakdown{ display:flex; flex-direction:column; gap:8px; }
+  .cat-row{ display:flex; justify-content:space-between; align-items:center; background: var(--bg-elev); border:1px solid var(--line); border-radius: 12px; padding: 12px 16px; font-size:13px; gap:10px; }
+  .cat-row .name{ min-width:110px; font-weight:700; }
+  .cat-row .bar{ flex:1; height:6px; background: var(--bg-elev-2); border-radius:4px; overflow:hidden; }
+  .cat-row .bar span{ display:block; height:100%; background: var(--turquoise); }
+  .cat-row .count{ font-family:'JetBrains Mono',monospace; color: var(--ink-dim); font-size:12px; min-width:40px; text-align:right; }
+
+  /* ---------- Admin ---------- */
+  .admin-form{
+    background: var(--bg-elev); border:1px solid var(--line); border-radius: var(--radius);
+    padding: 22px; margin-bottom: 20px; box-shadow: var(--shadow);
+  }
+  .admin-form h2{ font-family:'Fraunces',serif; font-weight:600; font-size:20px; margin:0 0 4px; }
+  .admin-form .sub{ font-size:12px; color: var(--ink-dim); margin: 0 0 16px; }
+  .form-row{ display:flex; gap:10px; margin-bottom: 12px; flex-wrap:wrap; }
+  .form-row input, .form-row select{
+    flex:1; min-width:140px;
+    background: var(--bg); border:1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; color: var(--ink); font-family:'Manrope',sans-serif; font-size:14px;
+  }
+  .form-row input:focus, .form-row select:focus{ outline:none; border-color: var(--turquoise); }
+  .admin-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+  .import-box textarea{
+    width:100%; min-height:90px; background: var(--bg); border:1px solid var(--line); border-radius: 10px;
+    padding: 12px; color: var(--ink); font-family:'JetBrains Mono',monospace; font-size:12px; resize:vertical;
+  }
+  .import-box textarea:focus{ outline:none; border-color: var(--turquoise); }
+  label.file-label{ display:inline-flex; align-items:center; cursor:pointer; }
+
+  .word-list{ display:flex; flex-direction:column; gap:8px; }
+  .word-row{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    background: var(--bg-elev); border:1px solid var(--line); border-radius: 12px;
+    padding: 12px 16px;
+  }
+  .word-row .pair{ font-size:14px; display:flex; align-items:center; gap:10px; }
+  .word-row .thumb{ width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0; }
+  .word-row .pair b{ font-family:'Fraunces',serif; font-size:16px; }
+  .word-row .pair .arrow{ color: var(--ink-dim); margin: 0 6px; }
+  .word-row .tag{
+    font-size:10px; text-transform:uppercase; letter-spacing:.05em; color: var(--ink-dim);
+    background: var(--bg-elev-2); border-radius:999px; padding:3px 9px; margin-left:6px;
+  }
+  .word-row .row-actions{ display:flex; gap:6px; }
+  .word-row button.mini{
+    background:transparent; border:none; cursor:pointer; font-size:12px; font-weight:700;
+    padding:6px 10px; border-radius:8px;
+  }
+  .word-row .edit-btn{ color: var(--turquoise); }
+  .word-row .edit-btn:hover{ background: rgba(58,175,169,.12); }
+  .word-row .del{ color: var(--danger); }
+  .word-row .del:hover{ background: rgba(198,84,84,.12); }
+  .edit-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; width:100%; }
+  .edit-row input{
+    background: var(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 10px;
+    font-size:13px; color: var(--ink); font-family:'Manrope',sans-serif; flex:1; min-width:110px;
+  }
+  .list-empty{ text-align:center; color: var(--ink-dim); padding: 30px 0; font-size:14px; }
+
+  .admin-meta{ display:flex; justify-content:space-between; align-items:center; margin: 22px 0 12px; }
+  .admin-meta h3{ font-family:'Fraunces',serif; font-size:16px; margin:0; }
+  .admin-meta span{ font-family:'JetBrains Mono',monospace; font-size:12px; color: var(--ink-dim); }
+
+  /* ---------- Admin lock ---------- */
+  .lock-screen{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding: 60px 20px;
+    background: var(--bg-elev); border:1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .lock-icon{
+    width:56px; height:56px; border-radius:50%;
+    background: linear-gradient(145deg, var(--gold), var(--terracotta));
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; margin-bottom:18px; color:#1a1200;
+  }
+  .lock-screen h2{ font-family:'Fraunces',serif; font-weight:600; font-size:20px; margin:0 0 6px; }
+  .lock-screen p{ color: var(--ink-dim); font-size:13px; margin:0 0 20px; }
+  .lock-form{ display:flex; gap:10px; width:100%; max-width:280px; }
+  .lock-form input{
+    flex:1; text-align:center; letter-spacing:.3em; font-family:'JetBrains Mono',monospace;
+    background: var(--bg); border:1px solid var(--line); border-radius: 10px;
+    padding: 12px 10px; color: var(--ink); font-size:15px;
+  }
+  .lock-form input:focus{ outline:none; border-color: var(--turquoise); }
+  .lock-error{ color: var(--danger); font-size:12px; margin-top:12px; min-height:16px; }
+
+  .toast{
+    position: fixed; bottom: 24px; left:50%; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: var(--bg); padding: 12px 20px; border-radius: 999px;
+    font-size:13px; font-weight:600; opacity:0; pointer-events:none; transition: all .3s ease;
+    z-index:50; box-shadow: var(--shadow); max-width:88vw; text-align:center;
+  }
+  [data-theme="light"] .toast{ color:#fff; }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width:480px){
+    .options{ grid-template-columns: 1fr; }
+    .stats-grid{ grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ---------- Books ---------- */
+  .book-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+  .book-card{
+    position:relative; border-radius: 16px; padding: 20px 16px; cursor:pointer;
+    min-height:150px; display:flex; flex-direction:column; justify-content:flex-end;
+    box-shadow: var(--shadow); border:1px solid var(--line);
+    color:#fff; overflow:hidden; transition: transform .2s ease;
+  }
+  .book-card:hover{ transform: translateY(-3px); }
+  .book-card::before{
+    content:""; position:absolute; inset:0; opacity:.9;
+  }
+  .book-card.b1::before{ background: linear-gradient(155deg, #3aafa9, #1c5f5a); }
+  .book-card.b2::before{ background: linear-gradient(155deg, #d4a72c, #8a6a16); }
+  .book-card.b3::before{ background: linear-gradient(155deg, #c9683f, #7c3f22); }
+  .book-card.b4::before{ background: linear-gradient(155deg, #5a6b8c, #262f42); }
+  .book-card .bc-badge{
+    position:relative; z-index:1; font-size:10px; text-transform:uppercase; letter-spacing:.08em;
+    background: rgba(255,255,255,.2); padding:3px 9px; border-radius:999px; align-self:flex-start; margin-bottom:auto;
+  }
+  .book-card .bc-title{ position:relative; z-index:1; font-family:'Fraunces',serif; font-weight:600; font-size:17px; line-height:1.25; margin-top:16px; }
+  .book-card .bc-sub{ position:relative; z-index:1; font-size:11px; opacity:.85; margin-top:4px; }
+  .book-card.soon{ cursor:default; opacity:.75; }
+
+  .books-back{
+    display:inline-flex; align-items:center; gap:6px; background:transparent; border:none;
+    color: var(--ink-dim); font-family:'Manrope',sans-serif; font-weight:700; font-size:13px;
+    cursor:pointer; margin-bottom:16px; padding:0;
+  }
+  .books-back:hover{ color: var(--ink); }
+  .book-header{ margin-bottom:18px; }
+  .book-header h2{ font-family:'Fraunces',serif; font-weight:600; font-size:22px; margin:0 0 4px; }
+  .book-header p{ color: var(--ink-dim); font-size:13px; margin:0; }
+
+  .unit-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(90px,1fr)); gap:8px; }
+  .unit-cell{
+    background: var(--bg-elev); border:1px solid var(--line); border-radius: 10px;
+    padding: 10px 6px; text-align:center; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:12px;
+    transition: all .15s ease; position:relative;
+  }
+  .unit-cell:hover{ border-color: var(--turquoise); }
+  .unit-cell.filled{ background: var(--turquoise-dim); border-color: var(--turquoise); color: var(--ink); }
+  [data-theme="light"] .unit-cell.filled{ background: #e3f4f3; }
+  .unit-cell .dot{ display:block; width:5px; height:5px; border-radius:50%; background: var(--turquoise); margin: 4px auto 0; }
+
+  .unit-detail{ background: var(--bg-elev); border:1px solid var(--line); border-radius: var(--radius); padding:20px; box-shadow: var(--shadow); }
+  .unit-detail-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px; }
+  .unit-detail-head h3{ font-family:'Fraunces',serif; font-size:18px; margin:0; }
+  .unit-word-list{ display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+  .unit-word-row{ display:flex; justify-content:space-between; align-items:baseline; padding:9px 12px; background: var(--bg); border:1px solid var(--line); border-radius:10px; font-size:13px; gap:8px; flex-wrap:wrap; }
+  .unit-word-row .en{ font-weight:700; }
+  .unit-word-row .ipa{ color: var(--ink-dim); font-family:'JetBrains Mono',monospace; font-size:11px; }
+  .unit-word-row .uz{ color: var(--turquoise); font-weight:600; }
+  .unit-empty{ text-align:center; color: var(--ink-dim); padding: 30px 10px; font-size:13px; }
+  .unit-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+
+  /* ---------- Creator modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background: rgba(0,0,0,.6); backdrop-filter: blur(3px);
+    display:none; align-items:center; justify-content:center; z-index:100; padding:20px;
+  }
+  .modal-overlay.show{ display:flex; }
+  .creator-card{
+    position:relative; width:100%; max-width:340px; border-radius:22px; overflow:hidden;
+    background: linear-gradient(165deg, #12203a, #0b0b0c 65%);
+    box-shadow: 0 30px 70px -20px rgba(0,0,0,.7);
+    text-align:center; padding: 34px 26px 28px;
+    border: 1px solid rgba(58,175,169,.35);
+    animation: fadeUp .35s ease;
+  }
+  .creator-card::before{
+    content:""; position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(58,175,169,.35) 0, transparent 45%),
+      radial-gradient(circle at 90% 90%, rgba(212,167,44,.25) 0, transparent 50%);
+    pointer-events:none;
+  }
+  .creator-close{
+    position:absolute; top:14px; right:14px; width:30px; height:30px; border-radius:50%;
+    border:none; background: rgba(255,255,255,.12); color:#fff; cursor:pointer; font-size:15px; z-index:2;
+  }
+  .creator-photo{
+    position:relative; z-index:1; width:112px; height:112px; border-radius:50%; object-fit:cover;
+    border: 3px solid var(--turquoise); box-shadow: 0 10px 30px -8px rgba(58,175,169,.6);
+    margin-bottom:16px;
+  }
+  .creator-name{ position:relative; z-index:1; font-family:'Fraunces',serif; font-weight:600; font-size:21px; color:#fff; margin-bottom:4px; }
+  .creator-role{ position:relative; z-index:1; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color: var(--turquoise); font-weight:700; margin-bottom:16px; }
+  .creator-tags{ position:relative; z-index:1; display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:6px; }
+  .creator-tag{ background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); color:#f0efe9; font-size:11px; padding:6px 12px; border-radius:999px; }
+</style>
+</head>
+<body data-theme="dark">
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="brand-mark">Só</div>
+      <div class="brand-text">
+        <h1>So'zlar</h1>
+        <span>o'zbekcha · inglizcha lug'at</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="streak-badge">🔥 <b id="streakCount">0</b></div>
+      <button class="creator-btn" id="creatorBtn" title="Yaratuvchi">👤</button>
+      <button class="theme-toggle" id="themeToggle" title="Fonni almashtirish">🌙</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="books">Kitoblar</button>
+    <button class="tab-btn" data-tab="quiz">Test</button>
+    <button class="tab-btn" data-tab="stats">Statistika</button>
+    <button class="tab-btn" data-tab="admin">Boshqaruv</button>
+  </nav>
+
+  <!-- ================= TEST ================= -->
+  <section class="view" id="view-quiz">
+    <div class="quiz-head">
+      <h2>So'zlar testi</h2>
+      <div class="score-pill">Ball: <b id="scoreVal">0</b> / <span id="scoreTotal">0</span></div>
+    </div>
+    <div class="filter-row">
+      <select id="quizCategorySelect"></select>
+      <div class="mini-tabs" id="quizModeTabs">
+        <button data-mode="choice" class="active">4 variant</button>
+        <button data-mode="typing">Yozib javob</button>
+        <button data-mode="listening">🔊 Eshitib toping</button>
+        <button data-mode="timed">Tezkor (30s)</button>
+        <button data-mode="review">🔁 Takrorlash</button>
+        <button data-mode="family">🌳 Oila daraxti</button>
+      </div>
+      <div class="mini-tabs" id="quizDirTabs">
+        <button data-dir="uz-en" class="active">UZ → EN</button>
+        <button data-dir="en-uz">EN → UZ</button>
+      </div>
+    </div>
+    <div id="timerWrap" style="display:none;">
+      <div class="timer-bar"><span id="timerFill" style="width:100%"></span></div>
+    </div>
+    <div id="quizArea"></div>
+  </section>
+
+  <!-- ================= STATISTIKA ================= -->
+  <section class="view" id="view-stats">
+    <div class="stats-grid">
+      <div class="stat-box"><div class="num" id="statTotal">0</div><div class="lbl">Jami so'z</div></div>
+      <div class="stat-box"><div class="num" id="statMastered">0</div><div class="lbl">O'zlashtirilgan</div></div>
+      <div class="stat-box"><div class="num" id="statAccuracy">0%</div><div class="lbl">To'g'rilik darajasi</div></div>
+      <div class="stat-box"><div class="num" id="statStreakBig">0</div><div class="lbl">Kunlik seriya 🔥</div></div>
+    </div>
+    <div class="stats-sub">
+      <h3>Toifalar bo'yicha o'zlashtirish</h3>
+      <div class="cat-breakdown" id="catBreakdown"></div>
+    </div>
+  </section>
+
+  <!-- ================= KITOBLAR ================= -->
+  <section class="view active" id="view-books">
+    <div id="booksGridView">
+      <div class="book-grid" id="bookGrid"></div>
+    </div>
+    <div id="bookUnitsView" style="display:none;">
+      <button class="books-back" id="backToBooks">← Kitoblarga qaytish</button>
+      <div class="book-header">
+        <h2 id="unitsBookTitle"></h2>
+        <p id="unitsBookSub"></p>
+      </div>
+      <div class="unit-grid" id="unitGrid"></div>
+    </div>
+    <div id="unitDetailView" style="display:none;">
+      <button class="books-back" id="backToUnits">← Bo'limlarga qaytish</button>
+      <div class="unit-detail">
+        <div class="unit-detail-head">
+          <h3 id="unitDetailTitle"></h3>
+          <span class="score-pill" id="unitWordCount">0 ta so'z</span>
+        </div>
+        <div class="unit-word-list" id="unitWordList"></div>
+        <div class="unit-actions">
+          <button class="btn btn-gold" id="unitPracticeQuizBtn">📝 Testda sinash</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ADMIN ================= -->
+  <section class="view" id="view-admin">
+
+    <div class="lock-screen" id="lockScreen">
+      <div class="lock-icon">🔒</div>
+      <h2>Boshqaruv paneli qulflangan</h2>
+      <p>Davom etish uchun kirish kodini kiriting</p>
+      <form class="lock-form" id="lockForm">
+        <input type="password" id="lockInput" placeholder="Kod" inputmode="numeric" autocomplete="off">
+        <button class="btn btn-primary" type="submit">Kirish</button>
+      </form>
+      <div class="lock-error" id="lockError"></div>
+    </div>
+
+    <div id="adminPanel" style="display:none;">
+      <div class="admin-form">
+        <h2>Yangi so'z qo'shish</h2>
+        <p class="sub">To'liq maydonlarni to'ldiring, toifa va rasm ixtiyoriy</p>
+        <div class="form-row">
+          <input type="text" id="inputUz" placeholder="O'zbekcha so'z (masalan: olma)">
+          <input type="text" id="inputEn" placeholder="Inglizcha tarjima (masalan: apple)">
+        </div>
+        <div class="form-row">
+          <input type="text" id="inputCategory" list="categoryList" placeholder="Toifa (masalan: Ovqat)">
+          <datalist id="categoryList"></datalist>
+          <input type="text" id="inputIpa" placeholder="Talaffuz / IPA (ixtiyoriy)">
+          <input type="text" id="inputImage" placeholder="Rasm URL (ixtiyoriy)">
+        </div>
+        <div class="admin-actions">
+          <button class="btn btn-primary" id="addWordBtn">+ Qo'shish</button>
+          <button class="btn btn-ghost" id="resetDefaultBtn">Boshlang'ich ro'yxatga qaytarish</button>
+          <button class="btn btn-danger" id="clearAllBtn">Hammasini o'chirish</button>
+          <button class="btn btn-gold" id="initCloudBtn">☁️ Umumiy bulutni yoqish</button>
+          <button class="btn btn-ghost" id="lockOutBtn">🔒 Qulflash</button>
+        </div>
+        <div id="cloudIdBox" style="display:none; margin-top:14px; background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:14px;">
+          <p class="sub" style="margin:0 0 8px;">Bu ID'ni nusxalab, Claude'ga yuboring — u doimiy kod ichiga joylab beradi:</p>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="cloudIdValue" readonly style="flex:1; background:var(--bg-elev); border:1px solid var(--line); border-radius:8px; padding:10px; color:var(--ink); font-family:'JetBrains Mono',monospace;">
+            <button class="btn btn-ghost" id="copyCloudIdBtn">Nusxalash</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-form import-box">
+        <h2>Ko'plab so'z qo'shish</h2>
+        <p class="sub">Har bir qatorda: <code>o'zbekcha,inglizcha,toifa,ipa,rasm</code> (toifa/ipa/rasm ixtiyoriy). Kitob bo'limiga qo'shish uchun toifa qatoriga <code>VU:kitob:bo'lim</code> yozing, masalan <code>VU:preint:2</code></p>
+        <textarea id="importText" placeholder="olma,apple,Ovqat&#10;non,bread,Ovqat&#10;shop,shop,VU:preint:2,ʃɒp"></textarea>
+        <p class="sub" style="margin-top:8px;">Kitoblar: <code>elementary</code> · <code>preint</code> · <code>upperint</code> · <code>advanced</code>, bo'lim raqami 1–100</p>
+        <div class="admin-actions" style="margin-top:12px;">
+          <button class="btn btn-primary" id="importBtn">Import qilish</button>
+          <label class="btn btn-ghost file-label">📁 Fayldan yuklash
+            <input type="file" id="importFile" accept=".csv,.txt" style="display:none;">
+          </label>
+          <button class="btn btn-gold" id="exportBtn">⬇ CSV yuklab olish</button>
+        </div>
+      </div>
+
+      <div class="admin-meta">
+        <h3>So'zlar ro'yxati</h3>
+        <span id="wordCount">0 ta so'z</span>
+      </div>
+      <div class="word-list" id="wordList"></div>
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="creatorOverlay">
+  <div class="creator-card">
+    <button class="creator-close" id="creatorClose">✕</button>
+    <img class="creator-photo" id="creatorPhoto" alt="Yaratuvchi" src="data:image/jpeg;base64,PLACEHOLDER_IMAGE">
+    <div class="creator-name">Yaratuvchi</div>
+    <div class="creator-role">Dasturchi 👨‍💻</div>
+    <div class="creator-tags">
+      <span class="creator-tag">17 yosh</span>
+      <span class="creator-tag">O'zbekiston</span>
+      <span class="creator-tag">Frontend</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STORAGE_KEY = "uzbek_dictionary_words_v1";
+  var THEME_KEY = "uzbek_dictionary_theme_v1";
+  var STREAK_KEY = "uzbek_dictionary_streak_v1";
+  var MISSED_KEY = "uzbek_dictionary_missed_v1";
+  var ADMIN_CODE = "10602110";
+  var adminUnlocked = false;
+
+  // Umumiy (barcha qurilmalar uchun) bulut ombori — jsonbin.io orqali
+  var CLOUD_ID = "6a7e4e6dda38895dfee1f955"; // Barcha qurilmalar shu umumiy bulutga ulanadi
+  var CLOUD_MASTER_KEY = "$2a$10$Ex30HoNpj.7Ktbf4KrUh.urI0xcRuDHTUUg061WjHAeTytXtHPdM2";
+  var CLOUD_API = "https://api.jsonbin.io/v3/b";
+  var CLOUD_ID_LOCAL_KEY = "uzbek_dictionary_cloud_id_v1";
+
+  var DEFAULT_WORDS = [
+    {id:"d1", uz:"olma", en:"apple", category:"Ovqat", image:""},
+    {id:"d2", uz:"non", en:"bread", category:"Ovqat", image:""},
+    {id:"d3", uz:"kitob", en:"book", category:"Umumiy", image:""},
+    {id:"d4", uz:"uy", en:"house", category:"Uy-ro'zg'or", image:""},
+    {id:"d5", uz:"suv", en:"water", category:"Ovqat", image:""},
+    {id:"d6", uz:"gul", en:"flower", category:"Tabiat", image:""},
+    {id:"d7", uz:"osmon", en:"sky", category:"Tabiat", image:""},
+    {id:"d8", uz:"quyosh", en:"sun", category:"Tabiat", image:""},
+    {id:"d9", uz:"oy", en:"moon", category:"Tabiat", image:""},
+    {id:"d10", uz:"yulduz", en:"star", category:"Tabiat", image:""},
+    {id:"d11", uz:"daryo", en:"river", category:"Tabiat", image:""},
+    {id:"d12", uz:"tog'", en:"mountain", category:"Tabiat", image:""},
+    {id:"d13", uz:"o'rmon", en:"forest", category:"Tabiat", image:""},
+    {id:"d14", uz:"qush", en:"bird", category:"Hayvonlar", image:""},
+    {id:"d15", uz:"baliq", en:"fish", category:"Hayvonlar", image:""},
+    {id:"d16", uz:"mushuk", en:"cat", category:"Hayvonlar", image:""},
+    {id:"d17", uz:"it", en:"dog", category:"Hayvonlar", image:""},
+    {id:"d18", uz:"stol", en:"table", category:"Uy-ro'zg'or", image:""},
+    {id:"d19", uz:"deraza", en:"window", category:"Uy-ro'zg'or", image:""},
+    {id:"d20", uz:"eshik", en:"door", category:"Uy-ro'zg'or", image:""},
+    {id:"d21", uz:"maktab", en:"school", category:"Umumiy", image:""},
+    {id:"d22", uz:"o'qituvchi", en:"teacher", category:"Umumiy", image:""},
+    {id:"d23", uz:"do'st", en:"friend", category:"His-tuyg'u", image:""},
+    {id:"d24", uz:"baxt", en:"happiness", category:"His-tuyg'u", image:""}
+  ];
+
+  var words = [];
+  var quizCategory = "all";
+
+  // ---------- Books ----------
+  var BOOKS = [
+    {id:"elementary", title:"Vocabulary in Use: Elementary", sub:"Boshlang'ich daraja", cls:"b1", soon:false},
+    {id:"preint", title:"Vocabulary in Use: Pre-Intermediate", sub:"O'rta darajadan past", cls:"b2", soon:false},
+    {id:"upperint", title:"Vocabulary in Use: Upper-Intermediate", sub:"O'rta darajadan yuqori", cls:"b3", soon:false},
+    {id:"advanced", title:"Vocabulary in Use: Advanced", sub:"Yuqori daraja", cls:"b4", soon:true}
+  ];
+  var UNITS_PER_BOOK = 100;
+  function unitCategory(bookId, unitNum){ return "VU:" + bookId + ":" + unitNum; }
+
+  // Foydalanuvchi yuborgan lug'atlar (Pre-Intermediate, 1-bo'lim: Shahar hayoti)
+  var BOOK_VOCAB = [
+    ["health centre","ˈhelθ ˌsentə","sog'liq markazi"],
+    ["law courts","ˈlɔː kɔːts","sud binosi"],
+    ["registry office","ˈredʒɪstri ˌɒfɪs","nikoh ro'yxatdan o'tkazish idorasi"],
+    ["citizens' advice bureau","ˈsɪtɪzənz ədˈvaɪs ˈbjʊərəʊ","fuqarolar maslahat byurosi"],
+    ["job centre","dʒɒb ˈsentə","ish topish markazi"],
+    ["department store","dɪˈpɑːtmənt stɔː","yirik do'kon"],
+    ["chemist's","ˈkemɪsts","dorixona"],
+    ["garden centre","ˈɡɑːdən ˌsentə","bog' markazi"],
+    ["police station","pəˈliːs ˌsteɪʃən","politsiya bo'limi"],
+    ["Town/City Hall","taʊn / ˈsɪti hɔːl","hokimiyat binosi"],
+    ["estate agent","ɪˈsteɪt ˈeɪdʒənt","ko'chmas mulk agenti"],
+    ["housing estate","ˈhaʊzɪŋ ɪˈsteɪt","uy-joy massivlari"],
+    ["industrial estate","ɪnˈdʌstriəl ɪˈsteɪt","sanoat zonasi"],
+    ["traffic jams","ˈtræfɪk dʒæmz","transport tirbandliklari"],
+    ["slums","slʌmz","qashshoq hududlar"],
+    ["vandalism","ˈvændəlɪzəm","mol-mulkni buzish"],
+    ["overcrowding","ˌəʊvəˈkraʊdɪŋ","aholi zichligi"],
+    ["pollution","pəˈluːʃən","ifloslanish"],
+    ["deterioration","dɪˌtɪəriəˈreɪʃən","yomonlashuv"],
+    ["commuters","kəˈmjuːtəz","qatnovchilar"],
+    ["poverty","ˈpɒvəti","qashshoqlik"],
+    ["historic","hɪˈstɒrɪk","tarixiy"],
+    ["spacious","ˈspeɪʃəs","keng"],
+    ["elegant","ˈelɪɡənt","nafis"],
+    ["magnificent","mæɡˈnɪfɪsənt","ulug'vor"],
+    ["deserted","dɪˈzɜːtɪd","tashlandiq"],
+    ["bustling","ˈbʌslɪŋ","gavjum"],
+    ["packed","pækt","to'lib-toshgan"],
+    ["filthy","ˈfɪlθi","iflos"],
+    ["run-down","ˌrʌnˈdaʊn","abgor, xarob"]
+  ].map(function(row, i){
+    return {
+      id: "b_preint_1_" + (i + 1),
+      uz: row[2], en: row[0], ipa: row[1],
+      category: unitCategory("preint", 1), image: ""
+    };
+  });
+
+  // Upper-Intermediate, Unit 74: Word partners
+  BOOK_VOCAB = BOOK_VOCAB.concat([
+    ["naturally","ˈnætʃərəli","tabiiy ravishda"],
+    ["commonly","ˈkɒmənli","keng ko'lamda"],
+    ["word partner","wɜːd ˈpɑːtnə","juft so'zlar"],
+    ["collocation","ˌkɒləˈkeɪʃən","so'z birikmasi"],
+    ["spend time","spɛnd taɪm","vaqt o'tkazmoq"],
+    ["miss the bus","mɪs ðə bʌs","avtobusni o'tkazib yubormoq"],
+    ["make a mistake","meɪk ə mɪsˈteɪk","xato qilmoq"],
+    ["serious injury","ˈsɪəriəs ˈɪndʒəri","jiddiy jarohat"],
+    ["serious illness","ˈsɪəriəs ˈɪlnəs","jiddiy kasallik"],
+    ["quite likely","kwaɪt ˈlaɪkli","ehtimoli ko'p"],
+    ["depend on","dɪˈpɛnd ɒn","bog'liq bo'lmoq"],
+    ["tell a joke","tɛl ə dʒəʊk","latifa aytmoq"],
+    ["lose weight","luːz weɪt","vazn yo'qotmoq"],
+    ["put on weight","pʊt ɒn weɪt","vazn to'plamoq"],
+    ["go on a diet","ɡəʊ ɒn ə ˈdaɪət","parhez qilmoq"],
+    ["predict the future","prɪˈdɪkt ðə ˈfjʊtʃər","kelajakni bashorat qilmoq"],
+    ["score a goal","skɔːr ə ɡəʊl","gol urmoq"],
+    ["set off an alarm","sɛt ɒf ən əˈlɑːm","signal bermoq"],
+    ["fall in love","fɔːl ɪn lʌv","oshiq bo'lmoq"],
+    ["expect a baby","ɪkˈspɛkt ə ˈbeɪbi","bola kutmoq"],
+    ["large number","lɑːdʒ ˈnʌmbə","katta miqdor"],
+    ["limited","ˈlɪmɪtɪd","cheklangan"],
+    ["large amount","lɑːdʒ əˈmaʊnt","katta miqdor"],
+    ["limited vocabulary","ˈlɪmɪtɪd vəʊˈkæbjʊləri","cheklangan lug'at boyligi"],
+    ["wide choice","waɪd tʃɔɪs","keng tanlov"],
+    ["narrow choice","ˈnærəʊ tʃɔɪs","tor tanlov"],
+    ["wide vocabulary","waɪd vəʊˈkæbjʊləri","keng lug'at boyligi"],
+    ["loud noise","laʊd nɔɪz","baland shovqin"],
+    ["of great importance","əv ɡreɪt ɪmˈpɔːtəns","katta ahamiyatli"],
+    ["great fun","ɡreɪt fʌn","juda qiziqarli"],
+    ["heavy traffic","ˈhɛvi ˈtræfɪk","og'ir tirbandlik"],
+    ["light traffic","laɪt ˈtræfɪk","yengil tirbandlik"],
+    ["terribly sorry","ˈtɛrəbli ˈsɒri","juda afsusda"],
+    ["well aware","wɛl əˈweə","yaxshi xabardor"],
+    ["vitally important","ˈvaɪtəli ɪmˈpɔːtənt","juda muhim"],
+    ["fast asleep","fɑːst əˈsliːp","tezda uxlab qolmoq"],
+    ["wide awake","waɪd əˈweɪk","uyg'oq"]
+  ].map(function(row, i){
+    return {
+      id: "b_upperint_74_" + (i + 1),
+      uz: row[2], en: row[0], ipa: row[1],
+      category: unitCategory("upperint", 74), image: ""
+    };
+  }));
+
+  // Upper-Intermediate, Unit 28: Health and medicine
+  BOOK_VOCAB = BOOK_VOCAB.concat([
+    ["rash","ræʃ","toshma"],
+    ["bruise","bruːz","ko'kargan joy (zarbadan)"],
+    ["lump","lʌmp","shish"],
+    ["spots","spɒts","mayda dog'lar, husnbuzarlar"],
+    ["black eye","blæk aɪ","ko'z atrofining ko'karishi"],
+    ["sore throat","sɔː θrəʊt","tomoq og'rig'i"],
+    ["temperature","ˈtemprətʃə","isitma, tana haroratining ko'tarilishi"],
+    ["high blood pressure","haɪ blʌd ˌpreʃə","yuqori qon bosimi"],
+    ["low blood pressure","ləʊ blʌd ˌpreʃə","past qon bosimi"],
+    ["chest pains","tʃest peɪnz","ko'krakdagi og'riqlar"],
+    ["backache","ˈbækeɪk","bel og'rig'i"],
+    ["earache","ˈɪəreɪk","quloq og'rig'i"],
+    ["pain in my side","peɪn ɪn maɪ saɪd","yonbosh og'rig'i"],
+    ["indigestion","ˌɪndɪˈdʒestʃən","ovqat hazm bo'lmasligi"],
+    ["sickness and diarrhoea","ˈsɪknəs ənd ˌdaɪəˈrɪə","qayt qilish va ich ketish"],
+    ["sunburn","ˈsʌnbɜːn","quyoshdan kuyish"],
+    ["virus","ˈvaɪərəs","virus"],
+    ["aching","ˈeɪkɪŋ","og'rimoq (doimiy, zerikarli og'riq)"],
+    ["itching","ˈɪtʃɪŋ","qichishish"],
+    ["trembling","ˈtremblɪŋ","titrash (hayajon yoki qo'rquvdan)"],
+    ["shivering","ˈʃɪvərɪŋ","sovuqdan qaltirash"],
+    ["hurt","hɜːt","og'rimoq"],
+    ["get over","ɡet ˈəʊvə","tuzalmoq"],
+    ["recover","rɪˈkʌvə","sog'aymoq"],
+    ["feel sick","fiːl sɪk","ko'ngli aynimoq, kasal his qilmoq"],
+    ["breathless","ˈbreθləs","nafas qisishi"],
+    ["dizzy","ˈdɪzi","bosh aylanish"],
+    ["depressed","dɪˈprest","tushkun"],
+    ["exhausted","ɪɡˈzɔːstɪd","holsiz"],
+    ["stressed","strest","stress holatida"],
+    ["lost my appetite","lɒst maɪ ˈæpɪtaɪt","ishtaham yo'qolgan"],
+    ["lost my voice","lɒst maɪ vɔɪs","ovozim chiqmayapti"],
+    ["picked up a bug","pɪkt ʌp ə bʌɡ","virus yuqtirib oldim"],
+    ["broken my wrist","ˈbrəʊkən maɪ rɪst","bilagim singan"],
+    ["sprained my ankle","spreɪnd maɪ ˈæŋkl","tovonimni qayib (cho'zib) oldim"],
+    ["dislocated my shoulder","ˈdɪsləkeɪtɪd maɪ ˈʃəʊldə","yelkam chiqqan"],
+    ["died of a heart attack","daɪd əv ə ˈhɑːt ətæk","yurak xurujidan vafot etgan"],
+    ["contracted AIDS","kənˈtræktɪd eɪdz","OITS yuqtirgan"],
+    ["suffered a stroke","ˈsʌfəd ə strəʊk","insultga uchragan"],
+    ["take a teaspoonful of medicine","","bir choy qoshiq dori ichmoq"],
+    ["put a bandage on","","bog'lab qo'ymoq"],
+    ["have some injections","ɪnˈdʒekʃənz","emlanmoq, ukol olmoq"],
+    ["need an operation","ˌɒpəˈreɪʃən","operatsiyaga muhtoj bo'lmoq"],
+    ["put in plaster","pʊt ɪn ˈplɑːstə","gips qo'ymoq"],
+    ["take tablets","teɪk ˈtæbləts","tabletka qabul qilmoq"],
+    ["surgeon operates on a patient","ˈsɜːdʒən ˈɒpəreɪts ɒn ə ˈpeɪʃnt","jarroh bemorni operatsiya qiladi"]
+  ].map(function(row, i){
+    return {
+      id: "b_upperint_28_" + (i + 1),
+      uz: row[2], en: row[0], ipa: row[1],
+      category: unitCategory("upperint", 28), image: ""
+    };
+  }));
+
+  // Upper-Intermediate, Unit 27: Clothes
+  BOOK_VOCAB = BOOK_VOCAB.concat([
+    ["pyjamas","pəˈdʒɑːməz","pidjama"],
+    ["collar","ˈkɒlə","yoqa"],
+    ["zip","zɪp","zamok, qadagich"],
+    ["hoodie","ˈhʊdi","kapyushonli sviter"],
+    ["hood","hʊd","kapyushon"],
+    ["sleeve","sliːv","yeng"],
+    ["cuff","kʌf","yengning tugmalanadigan qismi"],
+    ["hem","hem","kiyim pastki qismi"],
+    ["badge","bædʒ","nishon (belgi)"],
+    ["bikini","bɪˈkiːni","ayollar suzish kiyimi"],
+    ["belt","belt","kamar, belbog'"],
+    ["bra","brɑː","byustgalter"],
+    ["buckle","ˈbʌkəl","kamar ilmog'i"],
+    ["laces","ˈleɪsɪz","poyabzal ipi"],
+    ["sole","səʊl","tufli tagi"],
+    ["heel","hiːl","poshna"],
+    ["helmet","ˈhelmɪt","dubulg'a, shlem"],
+    ["slippers","ˈslɪpəz","shippak"],
+    ["try on","ˈtraɪ ɒn","kiyib ko'rmoq"],
+    ["dress up","ˌdres ˈʌp","bayramona kiyinish"],
+    ["let out","ˌlet ˈaʊt","kengaytirmoq (kiyimni)"],
+    ["let down","ˌlet ˈdaʊn","uzunlashtirmoq (kiyimni)"],
+    ["take in","ˌteɪk ˈɪn","toraytirmoq (kiyimni)"],
+    ["take up","ˌteɪk ˈʌp","qisqartirmoq (kiyimni)"],
+    ["change out of","ˌtʃeɪndʒ ˈaʊt əv","yechib, boshqa kiyimga o'tmoq"],
+    ["suit","suːt","yarashmoq"],
+    ["match","mætʃ","mos tushmoq (rang, uslub jihatidan)"],
+    ["fit","fɪt","mos kelmoq (hajm, o'lcham jihatidan)"],
+    ["grow out of","ˌɡrəʊ ˈaʊt əv","ulg'ayib qolgan (kiyim kichraygan)"],
+    ["baggy","ˈbæɡi","keng, osilib turgan"],
+    ["close-fitting","ˌkləʊs ˈfɪtɪŋ","tanaga yopishgan"],
+    ["long-sleeved","ˌlɒŋ ˈsliːvd","uzun yengli"],
+    ["sleeveless","ˈsliːvləs","yengsiz"],
+    ["V-neck","ˈviː nek","V shaklida yoqali"],
+    ["round-neck","ˈraʊnd nek","dumaloq yoqali"],
+    ["denim","ˈdenɪm","jinsi mato"],
+    ["woollen","ˈwʊlən","junli"],
+    ["suede","sweɪd","yumshoq charm (yaltiramaydigan)"],
+    ["pinstriped","ˈpɪnstraɪpt","ingichka chiziqli (odatda kostyum matosi)"],
+    ["spotted","ˈspɒtɪd","nuqtali"],
+    ["plain","pleɪn","oddiy, bezaksiz"],
+    ["striped","straɪpt","chiziqli"],
+    ["checked","tʃekt","katakli"],
+    ["flowery","ˈflaʊəri","gul naqshli"],
+    ["tartan","ˈtɑːtən","shotlandcha katak naqshli"],
+    ["elegant","ˈelɪɡənt","nafis, zamonaviy"],
+    ["casually","ˈkæʒuəli","oddiy, kundalik uslubda"],
+    ["designer","dɪˈzaɪnə","mashhur dizayner tomonidan yaratilgan"],
+    ["national costume","ˈnæʃənəl ˈkɒstjuːm","milliy kiyim"],
+    ["inside out","ˌɪnsaɪd ˈaʊt","teskari kiyilgan (ichki tomoni tashqarida)"],
+    ["disguise","dɪsˈɡaɪz","niqob, yashirin ko'rinish"]
+  ].map(function(row, i){
+    return {
+      id: "b_upperint_27_" + (i + 1),
+      uz: row[2], en: row[0], ipa: row[1],
+      category: unitCategory("upperint", 27), image: ""
+    };
+  }));
+
+  // Elementary, Unit 1: The family
+  BOOK_VOCAB = BOOK_VOCAB.concat([
+    ["husband","ˈhʌzbənd","er"],
+    ["wife","waɪf","xotin"],
+    ["father","ˈfɑːðə","ota"],
+    ["mother","ˈmʌðə","ona"],
+    ["parents","ˈpeərənts","ota-ona"],
+    ["son","sʌn","o'g'il"],
+    ["daughter","ˈdɔːtə","qiz"],
+    ["sister","ˈsɪstə","opa yoki singil"],
+    ["brother","ˈbrʌðə","aka yoki uka"],
+    ["grandfather","ˈɡrænfɑːðə","bobo"],
+    ["grandmother","ˈɡrænmʌðə","buvi"],
+    ["grandparents","ˈɡrænpeərənts","bobo-buvilar"],
+    ["granddaughter","ˈɡrænˌdɔːtə","nabira qiz"],
+    ["grandson","ˈɡrænsʌn","nabira o'g'il"],
+    ["uncle","ˈʌŋkl","amaki yoki tog'a"],
+    ["aunt","ɑːnt","amma yoki xola"],
+    ["niece","niːs","jiyan qiz"],
+    ["nephew","ˈnefjuː","jiyan o'g'il"],
+    ["cousins","ˈkʌznz","amakivachchalar"],
+    ["an only child","ən ˈəʊnli tʃaɪld","yagona farzand"],
+    ["a big family","ə bɪɡ ˈfæməli","katta oila"],
+    ["Have you got any brothers and sisters?","","Sizning aka-uka yoki opa-singilingiz bormi?"],
+    ["Do you come from a big family?","","Siz katta oiladanmisiz?"],
+    ["I have three brothers and two sisters","","Mening uch akam-ukam va ikki opa-singlim bor"]
+  ].map(function(row, i){
+    return {
+      id: "b_elementary_1_" + (i + 1),
+      uz: row[2], en: row[0], ipa: row[1],
+      category: unitCategory("elementary", 1), image: ""
+    };
+  }));
+
+  function ensureBookVocab(){
+    var have = {};
+    words.forEach(function(w){ have[w.id] = true; });
+    var added = false;
+    BOOK_VOCAB.forEach(function(w){
+      if(!have[w.id]){ words.push(migrateWord(w)); added = true; }
+    });
+    if(added) saveWords();
+  }
+
+  function genId(){ return "w_" + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+  function freshSrs(){ return {level:0, seen:0, correct:0, wrong:0, lastSeen:0}; }
+
+  // ---------- Storage ----------
+  function loadWords(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        var parsed = JSON.parse(raw);
+        if(Array.isArray(parsed) && parsed.length){
+          words = parsed.map(migrateWord);
+          return;
+        }
+      }
+    }catch(e){}
+    words = DEFAULT_WORDS.map(migrateWord);
+    saveWords();
+  }
+  function migrateWord(w){
+    return {
+      id: w.id || genId(),
+      uz: w.uz || "",
+      en: w.en || "",
+      category: w.category || "Umumiy",
+      image: w.image || "",
+      ipa: w.ipa || "",
+      srs: w.srs && typeof w.srs.level === "number" ? w.srs : freshSrs()
+    };
+  }
+  function saveWords(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(words)); }
+    catch(e){ showToast("Saqlashda xatolik yuz berdi"); }
+  }
+
+  // ---------- Cloud sync (jsonblob.com, ro'yxatdan o'tishsiz) ----------
+  function getCloudId(){
+    if(CLOUD_ID) return CLOUD_ID;
+    try{ return localStorage.getItem(CLOUD_ID_LOCAL_KEY) || ""; }catch(e){ return ""; }
+  }
+  function setLocalCloudId(id){
+    try{ localStorage.setItem(CLOUD_ID_LOCAL_KEY, id); }catch(e){}
+  }
+  function fetchCloudWords(cb){
+    var id = getCloudId();
+    if(!id){ if(cb) cb(false); return; }
+    fetch(CLOUD_API + "/" + id + "/latest", {
+      headers: {"X-Master-Key": CLOUD_MASTER_KEY}
+    })
+      .then(function(r){ if(!r.ok) throw new Error("fetch failed"); return r.json(); })
+      .then(function(data){
+        var rec = data && data.record;
+        if(rec && Array.isArray(rec.words) && rec.words.length){
+          words = rec.words.map(migrateWord);
+          saveWords();
+        }
+        if(cb) cb(true);
+      })
+      .catch(function(){ if(cb) cb(false); });
+  }
+  function pushCloudWords(){
+    var id = getCloudId();
+    if(!id) return;
+    fetch(CLOUD_API + "/" + id, {
+      method: "PUT",
+      headers: {"Content-Type":"application/json", "X-Master-Key": CLOUD_MASTER_KEY},
+      body: JSON.stringify({words: words})
+    }).catch(function(){});
+  }
+  function initCloudStorage(){
+    showToast("Bulut yaratilmoqda...");
+    fetch(CLOUD_API, {
+      method: "POST",
+      headers: {"Content-Type":"application/json", "X-Master-Key": CLOUD_MASTER_KEY},
+      body: JSON.stringify({words: words})
+    }).then(function(r){
+      if(!r.ok){ showToast("jsonbin javobi: " + r.status + " " + r.statusText); return null; }
+      return r.json();
+    }).then(function(data){
+      if(!data) return;
+      var id = data && data.metadata && data.metadata.id;
+      if(!id){ showToast("ID topilmadi, javobni tekshiring."); return; }
+      setLocalCloudId(id);
+      updateCloudStatusUI();
+      var box = document.getElementById("cloudIdBox");
+      if(box){
+        box.style.display = "block";
+        document.getElementById("cloudIdValue").value = id;
+      }
+      showToast("Bulut yaratildi! ID'ni nusxalab, Claude'ga yuboring.");
+    }).catch(function(err){
+      showToast("Xato: " + (err && err.message ? err.message : String(err)));
+    });
+  }
+  function updateCloudStatusUI(){
+    var btn = document.getElementById("initCloudBtn");
+    if(!btn) return;
+    var id = getCloudId();
+    if(id){
+      btn.textContent = "☁️ Bulut ulangan ✅";
+      btn.disabled = true;
+    } else {
+      btn.textContent = "☁️ Umumiy bulutni yoqish";
+      btn.disabled = false;
+    }
+  }
+  function loadTheme(){
+    var t = localStorage.getItem(THEME_KEY);
+    if(t === "light" || t === "dark") applyTheme(t);
+  }
+  function applyTheme(t){
+    document.body.setAttribute("data-theme", t);
+    document.getElementById("themeToggle").textContent = t === "dark" ? "🌙" : "☀️";
+    localStorage.setItem(THEME_KEY, t);
+  }
+
+  // ---------- Missed words (for Takrorlash / review mode) ----------
+  var missedIds = {};
+  function loadMissed(){
+    try{
+      var raw = localStorage.getItem(MISSED_KEY);
+      if(raw){
+        var arr = JSON.parse(raw);
+        if(Array.isArray(arr)) arr.forEach(function(id){ missedIds[id] = true; });
+      }
+    }catch(e){}
+  }
+  function saveMissed(){
+    try{ localStorage.setItem(MISSED_KEY, JSON.stringify(Object.keys(missedIds))); }catch(e){}
+  }
+  function markMissed(w){ if(!missedIds[w.id]){ missedIds[w.id] = true; saveMissed(); } }
+  function clearMissed(w){ if(missedIds[w.id]){ delete missedIds[w.id]; saveMissed(); } }
+
+  // ---------- Streak ----------
+  var streakData = {lastDate:null, count:0};
+  function updateStreak(){
+    var today = new Date();
+    var todayStr = today.toISOString().slice(0,10);
+    var raw = localStorage.getItem(STREAK_KEY);
+    var data = raw ? JSON.parse(raw) : {lastDate:null, count:0};
+    if(data.lastDate !== todayStr){
+      var yest = new Date(today); yest.setDate(yest.getDate() - 1);
+      var yestStr = yest.toISOString().slice(0,10);
+      data.count = (data.lastDate === yestStr) ? (data.count || 0) + 1 : 1;
+      data.lastDate = todayStr;
+      localStorage.setItem(STREAK_KEY, JSON.stringify(data));
+    }
+    streakData = data;
+    document.getElementById("streakCount").textContent = data.count;
+    document.getElementById("statStreakBig").textContent = data.count;
+  }
+
+  // ---------- Toast ----------
+  var toastTimer;
+  function showToast(msg){
+    var el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ el.classList.remove("show"); }, 2200);
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c];
+    });
+  }
+
+  function speak(text, lang){
+    if(!text) return;
+    if(!("speechSynthesis" in window)){ showToast("Brauzeringiz ovozli o'qishni qo'llamaydi"); return; }
+    try{
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = lang;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function getCategories(){
+    var set = {};
+    words.forEach(function(w){ set[w.category || "Umumiy"] = true; });
+    return Object.keys(set).sort();
+  }
+
+  function populateCategorySelects(){
+    var cats = getCategories();
+    var sel = document.getElementById("quizCategorySelect");
+    var prev = sel.value || "all";
+    sel.innerHTML = '<option value="all">Barcha toifalar</option>' +
+      cats.map(function(c){ return '<option value="' + escapeHtml(c) + '">' + escapeHtml(c) + '</option>'; }).join("");
+    sel.value = cats.indexOf(prev) >= 0 || prev === "all" ? prev : "all";
+    var dl = document.getElementById("categoryList");
+    dl.innerHTML = cats.map(function(c){ return '<option value="' + escapeHtml(c) + '">'; }).join("");
+  }
+
+  // ---------- Tabs ----------
+  var tabBtns = document.querySelectorAll(".tab-btn");
+  tabBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabBtns.forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      document.querySelectorAll(".view").forEach(function(v){ v.classList.remove("active"); });
+      document.getElementById("view-" + btn.dataset.tab).classList.add("active");
+      if(btn.dataset.tab === "quiz"){ if(quizMode === "family") startFamilyRound(); else startQuizRound(); }
+      if(btn.dataset.tab === "admin") showAdminGate();
+      if(btn.dataset.tab === "stats") renderStats();
+      if(btn.dataset.tab === "books") showBookGrid();
+    });
+  });
+
+  // ---------- Books UI ----------
+  var currentBookId = null;
+  var currentUnitNum = null;
+
+  function showBookGrid(){
+    document.getElementById("booksGridView").style.display = "block";
+    document.getElementById("bookUnitsView").style.display = "none";
+    document.getElementById("unitDetailView").style.display = "none";
+    var grid = document.getElementById("bookGrid");
+    grid.innerHTML = BOOKS.map(function(b){
+      return '<div class="book-card ' + b.cls + (b.soon ? ' soon' : '') + '" data-book="' + b.id + '">' +
+        '<span class="bc-badge">' + (b.soon ? "Tez orada" : UNITS_PER_BOOK + " bo'lim") + '</span>' +
+        '<div class="bc-title">' + escapeHtml(b.title) + '</div>' +
+        '<div class="bc-sub">' + escapeHtml(b.sub) + '</div>' +
+        '</div>';
+    }).join("");
+    grid.querySelectorAll(".book-card").forEach(function(card){
+      card.addEventListener("click", function(){
+        var book = BOOKS.filter(function(b){ return b.id === card.dataset.book; })[0];
+        if(book.soon){ showToast("Bu kitob tez orada qo'shiladi"); return; }
+        showUnitGrid(book.id);
+      });
+    });
+  }
+
+  function wordsInUnit(bookId, unitNum){
+    var cat = unitCategory(bookId, unitNum);
+    return words.filter(function(w){ return w.category === cat; });
+  }
+
+  function showUnitGrid(bookId){
+    currentBookId = bookId;
+    document.getElementById("booksGridView").style.display = "none";
+    document.getElementById("bookUnitsView").style.display = "block";
+    document.getElementById("unitDetailView").style.display = "none";
+    var book = BOOKS.filter(function(b){ return b.id === bookId; })[0];
+    document.getElementById("unitsBookTitle").textContent = book.title;
+    document.getElementById("unitsBookSub").textContent = "Kerakli bo'limni tanlang · " + UNITS_PER_BOOK + " ta bo'lim";
+    var grid = document.getElementById("unitGrid");
+    var html = "";
+    for(var i = 1; i <= UNITS_PER_BOOK; i++){
+      var count = wordsInUnit(bookId, i).length;
+      html += '<div class="unit-cell' + (count ? ' filled' : '') + '" data-unit="' + i + '">' +
+        i + '-bo\'lim' + (count ? '<span class="dot"></span>' : '') +
+        '</div>';
+    }
+    grid.innerHTML = html;
+    grid.querySelectorAll(".unit-cell").forEach(function(cell){
+      cell.addEventListener("click", function(){ showUnitDetail(bookId, parseInt(cell.dataset.unit, 10)); });
+    });
+  }
+
+  document.getElementById("backToBooks").addEventListener("click", showBookGrid);
+  document.getElementById("backToUnits").addEventListener("click", function(){ showUnitGrid(currentBookId); });
+
+  function showUnitDetail(bookId, unitNum){
+    currentUnitNum = unitNum;
+    document.getElementById("booksGridView").style.display = "none";
+    document.getElementById("bookUnitsView").style.display = "none";
+    document.getElementById("unitDetailView").style.display = "block";
+    var list = wordsInUnit(bookId, unitNum);
+    document.getElementById("unitDetailTitle").textContent = unitNum + "-bo'lim";
+    document.getElementById("unitWordCount").innerHTML = list.length + " ta so'z";
+    var box = document.getElementById("unitWordList");
+    if(!list.length){
+      box.innerHTML = '<div class="unit-empty">Bu bo\'lim hali to\'ldirilmagan.<br>Boshqaruv panelidan CSV import orqali so\'z qo\'shishingiz mumkin (toifa: <b>' + unitCategory(bookId, unitNum) + '</b>).</div>';
+    } else {
+      box.innerHTML = list.map(function(w){
+        return '<div class="unit-word-row"><span class="en">' + escapeHtml(w.en) + (w.ipa ? ' <span class="ipa">/' + escapeHtml(w.ipa) + '/</span>' : '') + '</span><span class="uz">' + escapeHtml(w.uz) + '</span></div>';
+      }).join("");
+    }
+  }
+
+  document.getElementById("unitPracticeQuizBtn").addEventListener("click", function(){
+    if(!currentBookId || !currentUnitNum) return;
+    if(currentBookId === "elementary" && currentUnitNum === 1){
+      document.querySelectorAll("#quizModeTabs button").forEach(function(b){ b.classList.remove("active"); });
+      document.querySelector('#quizModeTabs button[data-mode="family"]').classList.add("active");
+      quizMode = "family";
+      document.getElementById("quizCategorySelect").style.display = "none";
+      document.getElementById("quizDirTabs").style.display = "none";
+      document.querySelector('.tab-btn[data-tab="quiz"]').click();
+      return;
+    }
+    var cat = unitCategory(currentBookId, currentUnitNum);
+    if(wordsInUnit(currentBookId, currentUnitNum).length < 4){ showToast("Test uchun bu bo'limda kamida 4 ta so'z kerak"); return; }
+    quizCategory = cat;
+    populateCategorySelects();
+    document.getElementById("quizCategorySelect").value = cat;
+    document.querySelector('.tab-btn[data-tab="quiz"]').click();
+  });
+
+  // ---------- Family tree fill-in-the-blank (Elementary, Unit 1) ----------
+  var FAMILY_QUESTIONS = [
+    {before:"Ivan is Anne's ", answer:"husband", after:" and Karen and Jack's father."},
+    {before:"Anne is Ivan's wife and Karen and Jack's ", answer:"mother", after:"."},
+    {before:"Anne and Ivan are Karen and Jack's ", answer:"parents", after:"."},
+    {before:"Karen is Anne and Ivan's ", answer:"daughter", after:". Jack is their son."},
+    {before:"Jack is Anne and Ivan's ", answer:"son", after:". Karen is their daughter."},
+    {before:"Karen is Jack's ", answer:"sister", after:". Jack is Karen's brother."},
+    {before:"Jack is Karen's ", answer:"brother", after:". Karen is Jack's sister."},
+    {before:"Henry is Karen and Jack's ", answer:"grandfather", after:". Diana is their grandmother."},
+    {before:"Diana is Karen and Jack's ", answer:"grandmother", after:". Henry is their grandfather."},
+    {before:"Henry and Diana are Karen and Jack's ", answer:"grandparents", after:"."},
+    {before:"Karen is Henry and Diana's ", answer:"granddaughter", after:". Jack is their grandson."},
+    {before:"Jack is Henry and Diana's ", answer:"grandson", after:". Karen is their granddaughter."},
+    {before:"George is Karen and Jack's ", answer:"uncle", after:"."},
+    {before:"Amelia and Meena are Karen and Jack's ", answer:"aunts", after:"."},
+    {before:"Karen is Amelia, George and Meena's ", answer:"niece", after:". Jack is their nephew."},
+    {before:"Jack is Amelia, George and Meena's ", answer:"nephew", after:". Karen is their niece."},
+    {before:"Kavita and Ravi are Karen and Jack's ", answer:"cousins", after:"."}
+  ];
+  var familyPool = [];
+  var familyIndex = 0;
+  var familyScore = 0;
+
+  function shuffleArray(arr){
+    var a = arr.slice();
+    for(var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function startFamilyRound(){
+    familyPool = shuffleArray(FAMILY_QUESTIONS);
+    familyIndex = 0;
+    familyScore = 0;
+    document.getElementById("scoreVal").textContent = "0";
+    document.getElementById("scoreTotal").textContent = familyPool.length;
+    renderFamilyQuestion();
+  }
+
+  function renderFamilyQuestion(){
+    var area = document.getElementById("quizArea");
+    if(familyIndex >= familyPool.length){
+      var pct = Math.round((familyScore / familyPool.length) * 100);
+      area.innerHTML =
+        '<div class="quiz-card quiz-result">' +
+          '<div class="big-score">' + familyScore + ' / ' + familyPool.length + '</div>' +
+          '<p>' + pct + '% to\'g\'ri javob · Oila daraxti</p>' +
+          '<button class="btn btn-primary" id="restartQuiz" style="margin-top:14px;">Qayta boshlash</button>' +
+        '</div>';
+      document.getElementById("restartQuiz").addEventListener("click", startFamilyRound);
+      return;
+    }
+    var q = familyPool[familyIndex];
+    area.innerHTML =
+      '<div class="quiz-card">' +
+        '<div class="quiz-sub">Savol ' + (familyIndex + 1) + ' / ' + familyPool.length + ' · Henry va Diananing oilasi</div>' +
+        '<div class="quiz-word" style="font-size:20px; line-height:1.5;">' +
+          escapeHtml(q.before) + '<span style="border-bottom:2px solid var(--turquoise); padding:0 10px; color:var(--turquoise);">_____</span>' + escapeHtml(q.after) +
+        '</div>' +
+      '</div>' +
+      '<div class="typing-row">' +
+        '<input type="text" id="typingInput" autocomplete="off" placeholder="Bo\'sh joyga so\'zni yozing...">' +
+        '<button class="btn btn-primary" id="typingSubmit">Tekshirish</button>' +
+      '</div>' +
+      '<div class="typing-feedback" id="typingFeedback"></div>';
+    var input = document.getElementById("typingInput");
+    input.focus();
+    var submit = function(){
+      var val = input.value.trim().toLowerCase();
+      var correctVal = q.answer.toLowerCase();
+      var fb = document.getElementById("typingFeedback");
+      var ok = val === correctVal;
+      if(ok){
+        familyScore++;
+        document.getElementById("scoreVal").textContent = familyScore;
+        fb.textContent = "To'g'ri! 🎉";
+        fb.className = "typing-feedback ok";
+      } else {
+        fb.textContent = "Noto'g'ri. To'g'ri javob: " + q.answer;
+        fb.className = "typing-feedback bad";
+      }
+      input.disabled = true;
+      document.getElementById("typingSubmit").disabled = true;
+      setTimeout(function(){ familyIndex++; renderFamilyQuestion(); }, 1200);
+    };
+    document.getElementById("typingSubmit").addEventListener("click", submit);
+    input.addEventListener("keydown", function(e){ if(e.key === "Enter") submit(); });
+  }
+
+  // ---------- Quiz ----------
+  var quizMode = "choice";
+  var quizDirection = "uz-en";
+  var quizPool = [];
+  var quizIndex = 0;
+  var quizScore = 0;
+  var quizAttempted = 0;
+  var QUIZ_LEN = 8;
+  var timedInterval = null;
+  var timedSecondsLeft = 30;
+  var timedRunning = false;
+  var wrongStreak = 0;
+  var lockedUntil = 0;
+  var lockTickInterval = null;
+
+  function isLocked(){ return Date.now() < lockedUntil; }
+
+  function registerResult(ok){
+    if(ok){ wrongStreak = 0; return; }
+    wrongStreak++;
+    if(wrongStreak >= 5){
+      lockedUntil = Date.now() + 60000;
+      wrongStreak = 0;
+      showToast("5 marta xato javob! 1 daqiqa kutishingiz kerak.");
+    }
+  }
+
+  function showLockScreen(cb){
+    var area = document.getElementById("quizArea");
+    clearInterval(lockTickInterval);
+    function tick(){
+      var remain = Math.max(0, Math.ceil((lockedUntil - Date.now()) / 1000));
+      area.innerHTML = '<div class="quiz-card lock-quiz">' +
+        '<div class="quiz-sub">Ko\'p xato javob berdingiz</div>' +
+        '<div class="clock">⏳ ' + remain + 's</div>' +
+        '<p>Xavotir olmang, ' + remain + ' soniyadan so\'ng davom etasiz.</p>' +
+        '</div>';
+      if(remain <= 0){ clearInterval(lockTickInterval); cb(); }
+    }
+    tick();
+    lockTickInterval = setInterval(tick, 500);
+  }
+
+  function proceedOrLock(cb){
+    if(isLocked()) showLockScreen(cb);
+    else cb();
+  }
+
+  document.getElementById("quizCategorySelect").addEventListener("change", function(){
+    quizCategory = this.value;
+    startQuizRound();
+  });
+  document.querySelectorAll("#quizModeTabs button").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      document.querySelectorAll("#quizModeTabs button").forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      quizMode = btn.dataset.mode;
+      var hideForFamily = quizMode === "family";
+      document.getElementById("quizCategorySelect").style.display = hideForFamily ? "none" : "";
+      document.getElementById("quizDirTabs").style.display = hideForFamily ? "none" : "";
+      if(quizMode === "family"){ stopTimer(); clearInterval(lockTickInterval); startFamilyRound(); }
+      else { startQuizRound(); }
+    });
+  });
+  document.querySelectorAll("#quizDirTabs button").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      document.querySelectorAll("#quizDirTabs button").forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      quizDirection = btn.dataset.dir;
+      startQuizRound();
+    });
+  });
+
+  function getQuizWords(){
+    var base = quizCategory === "all" ? words : words.filter(function(w){ return w.category === quizCategory; });
+    if(quizMode === "review"){
+      base = base.filter(function(w){ return missedIds[w.id]; });
+    }
+    return base;
+  }
+
+  function buildWeighted(list){
+    var arr = [];
+    list.forEach(function(w, i){
+      var lvl = w.srs ? w.srs.level : 0;
+      var weight = Math.max(1, 5 - lvl);
+      for(var k = 0; k < weight; k++) arr.push(i);
+    });
+    for(var i = arr.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+  function pickRoundIndices(list, len){
+    var weighted = buildWeighted(list);
+    var seen = {}; var result = [];
+    for(var i = 0; i < weighted.length && result.length < len; i++){
+      var idx = weighted[i];
+      if(!seen[idx]){ seen[idx] = true; result.push(idx); }
+    }
+    return result;
+  }
+  function nextWeightedWord(list, avoid){
+    var weighted = buildWeighted(list);
+    if(!weighted.length) return null;
+    for(var tries = 0; tries < 8; tries++){
+      var idx = weighted[Math.floor(Math.random() * weighted.length)];
+      if(!avoid || list[idx] !== avoid) return list[idx];
+    }
+    return list[weighted[0]];
+  }
+
+  function stopTimer(){
+    if(timedInterval){ clearInterval(timedInterval); timedInterval = null; }
+    timedRunning = false;
+    document.getElementById("timerWrap").style.display = "none";
+  }
+
+  function startQuizRound(){
+    stopTimer();
+    clearInterval(lockTickInterval);
+    quizScore = 0; quizIndex = 0; quizAttempted = 0;
+    document.getElementById("scoreVal").textContent = "0";
+    var list = getQuizWords();
+
+    if(quizMode === "review"){
+      if(!list.length){
+        document.getElementById("quizArea").innerHTML =
+          '<div class="quiz-card"><p>Ajoyib! Xato javob bergan so\'zlaringiz yo\'q. Boshqa testlarda xato qilsangiz, ular shu yerda takrorlash uchun paydo bo\'ladi.</p></div>';
+        document.getElementById("scoreTotal").textContent = "0";
+        return;
+      }
+      if(words.length < 4){
+        document.getElementById("quizArea").innerHTML =
+          '<div class="quiz-card"><p>Test uchun kamida 4 ta so\'z kerak.</p></div>';
+        document.getElementById("scoreTotal").textContent = "0";
+        return;
+      }
+    } else if(list.length < 4){
+      document.getElementById("quizArea").innerHTML =
+        '<div class="quiz-card"><p>Test uchun kamida 4 ta so\'z kerak. Boshqaruv bo\'limida so\'z qo\'shing yoki toifani o\'zgartiring.</p></div>';
+      document.getElementById("scoreTotal").textContent = "0";
+      return;
+    }
+
+    if(quizMode === "timed"){
+      document.getElementById("scoreTotal").textContent = "∞";
+      startTimedRound(list);
+    } else {
+      var indices = pickRoundIndices(list, Math.min(QUIZ_LEN, list.length));
+      quizPool = indices.map(function(i){ return list[i]; });
+      document.getElementById("scoreTotal").textContent = quizPool.length;
+      proceedOrLock(renderQuizQuestion);
+    }
+  }
+
+  function fields(){
+    return quizDirection === "uz-en" ? {q:"uz", a:"en", qLang:"uz-UZ", aLang:"en-US"} : {q:"en", a:"uz", qLang:"en-US", aLang:"uz-UZ"};
+  }
+
+  function renderQuizQuestion(){
+    var area = document.getElementById("quizArea");
+    if(quizIndex >= quizPool.length){
+      var pct = Math.round((quizScore / quizPool.length) * 100);
+      area.innerHTML =
+        '<div class="quiz-card quiz-result">' +
+          '<div class="big-score">' + quizScore + ' / ' + quizPool.length + '</div>' +
+          '<p>' + pct + '% to\'g\'ri javob</p>' +
+          '<button class="btn btn-primary" id="restartQuiz" style="margin-top:14px;">Qayta boshlash</button>' +
+        '</div>';
+      document.getElementById("restartQuiz").addEventListener("click", startQuizRound);
+      return;
+    }
+    var current = quizPool[quizIndex];
+    var f = fields();
+    var head = '<div class="quiz-card">' +
+      '<div class="quiz-sub">Savol ' + (quizIndex + 1) + ' / ' + quizPool.length + '</div>' +
+      '<div class="quiz-word">' + escapeHtml(current[f.q]) + '</div>' +
+      '<button class="speaker-btn" id="qSpeakBtn" style="margin:8px auto 0;">🔊</button>' +
+      '<div class="quiz-sub" style="margin-top:8px;">tarjimasini tanlang</div>' +
+      '</div>';
+
+    if(quizMode === "typing"){
+      area.innerHTML = head +
+        '<div class="typing-row">' +
+          '<input type="text" id="typingInput" autocomplete="off" placeholder="Javobingizni yozing...">' +
+          '<button class="btn btn-primary" id="typingSubmit">Tekshirish</button>' +
+        '</div>' +
+        '<div class="typing-feedback" id="typingFeedback"></div>';
+      bindSpeaker(current, f);
+      var input = document.getElementById("typingInput");
+      input.focus();
+      var submit = function(){
+        var val = input.value.trim().toLowerCase();
+        var correctVal = String(current[f.a]).trim().toLowerCase();
+        var fb = document.getElementById("typingFeedback");
+        var ok = val === correctVal;
+        quizAttempted++;
+        updateSrs(current, ok);
+        registerResult(ok);
+        if(ok){
+          quizScore++;
+          document.getElementById("scoreVal").textContent = quizScore;
+          fb.textContent = "To'g'ri! 🎉";
+          fb.className = "typing-feedback ok";
+          if(quizMode === "review") clearMissed(current);
+        } else {
+          fb.textContent = "Noto'g'ri. To'g'ri javob: " + current[f.a];
+          fb.className = "typing-feedback bad";
+          markMissed(current);
+        }
+        input.disabled = true;
+        document.getElementById("typingSubmit").disabled = true;
+        setTimeout(function(){ quizIndex++; proceedOrLock(renderQuizQuestion); }, 1200);
+      };
+      document.getElementById("typingSubmit").addEventListener("click", submit);
+      input.addEventListener("keydown", function(e){ if(e.key === "Enter") submit(); });
+      return;
+    }
+
+    if(quizMode === "listening"){
+      area.innerHTML =
+        '<div class="quiz-card">' +
+          '<div class="quiz-sub">Savol ' + (quizIndex + 1) + ' / ' + quizPool.length + '</div>' +
+          '<div class="listen-box">' +
+            '<button class="listen-icon" id="listenPlayBtn" title="Qayta eshitish">🔊</button>' +
+            '<div class="listen-replay">Diqqat bilan tinglang va tarjimasini yozing</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="typing-row">' +
+          '<input type="text" id="typingInput" autocomplete="off" placeholder="Eshitgan so\'zning tarjimasi...">' +
+          '<button class="btn btn-primary" id="typingSubmit">Tekshirish</button>' +
+        '</div>' +
+        '<div class="typing-feedback" id="typingFeedback"></div>';
+      var playIt = function(){ speak(current[f.q], f.qLang); };
+      document.getElementById("listenPlayBtn").addEventListener("click", playIt);
+      setTimeout(playIt, 350);
+      var linput = document.getElementById("typingInput");
+      linput.focus();
+      var lsubmit = function(){
+        var val = linput.value.trim().toLowerCase();
+        var correctVal = String(current[f.a]).trim().toLowerCase();
+        var fb = document.getElementById("typingFeedback");
+        var ok = val === correctVal;
+        quizAttempted++;
+        updateSrs(current, ok);
+        registerResult(ok);
+        if(ok){
+          quizScore++;
+          document.getElementById("scoreVal").textContent = quizScore;
+          fb.textContent = "To'g'ri! 🎉 (eshitilgan so'z: " + current[f.q] + ")";
+          fb.className = "typing-feedback ok";
+          if(quizMode === "review") clearMissed(current);
+        } else {
+          fb.textContent = "Noto'g'ri. Eshitilgan so'z: " + current[f.q] + " → " + current[f.a];
+          fb.className = "typing-feedback bad";
+          markMissed(current);
+        }
+        linput.disabled = true;
+        document.getElementById("typingSubmit").disabled = true;
+        setTimeout(function(){ quizIndex++; proceedOrLock(renderQuizQuestion); }, 1400);
+      };
+      document.getElementById("typingSubmit").addEventListener("click", lsubmit);
+      linput.addEventListener("keydown", function(e){ if(e.key === "Enter") lsubmit(); });
+      return;
+    }
+
+    // choice / timed / review modes
+    area.innerHTML = head + '<div class="options" id="optionsGrid"></div>';
+    bindSpeaker(current, f);
+    var opts = buildOptions(current, f);
+    var grid = document.getElementById("optionsGrid");
+    opts.forEach(function(opt){
+      var b = document.createElement("div");
+      b.className = "option";
+      b.textContent = opt;
+      b.addEventListener("click", function(){ handleAnswer(b, opt, current, f); });
+      grid.appendChild(b);
+    });
+  }
+
+  function bindSpeaker(current, f){
+    var btn = document.getElementById("qSpeakBtn");
+    if(btn) btn.addEventListener("click", function(){ speak(current[f.q], f.qLang); });
+  }
+
+  function buildOptions(current, f){
+    // Distractors always come from the full word list so small
+    // pools (e.g. a Takrorlash round with few missed words) still work.
+    var pool = words;
+    var others = pool.filter(function(w){ return w[f.a] !== current[f.a]; }).map(function(w){ return w[f.a]; });
+    for(var i = others.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = others[i]; others[i] = others[j]; others[j] = tmp;
+    }
+    var opts = others.slice(0, Math.min(3, others.length));
+    opts.push(current[f.a]);
+    for(i = opts.length - 1; i > 0; i--){
+      j = Math.floor(Math.random() * (i + 1));
+      tmp = opts[i]; opts[i] = opts[j]; opts[j] = tmp;
+    }
+    return opts;
+  }
+
+  function handleAnswer(el, chosen, current, f){
+    var grid = document.getElementById("optionsGrid");
+    var correctVal = current[f.a];
+    Array.from(grid.children).forEach(function(child){
+      child.classList.add("disabled");
+      if(child.textContent === correctVal) child.classList.add("correct");
+    });
+    var ok = chosen === correctVal;
+    quizAttempted++;
+    updateSrs(current, ok);
+    if(quizMode !== "timed") registerResult(ok);
+    if(ok){
+      quizScore++;
+      document.getElementById("scoreVal").textContent = quizScore;
+      if(quizMode === "review") clearMissed(current);
+    } else {
+      el.classList.add("wrong");
+      markMissed(current);
+    }
+    var delay = quizMode === "timed" ? 500 : 900;
+    setTimeout(function(){
+      if(quizMode === "timed"){
+        if(timedRunning) renderTimedQuestion();
+      } else {
+        quizIndex++; proceedOrLock(renderQuizQuestion);
+      }
+    }, delay);
+  }
+
+  function startTimedRound(list){
+    timedSecondsLeft = 30;
+    timedRunning = true;
+    document.getElementById("timerWrap").style.display = "block";
+    document.getElementById("timerFill").style.width = "100%";
+    renderTimedQuestion();
+    timedInterval = setInterval(function(){
+      timedSecondsLeft--;
+      document.getElementById("timerFill").style.width = Math.max(0, (timedSecondsLeft / 30) * 100) + "%";
+      if(timedSecondsLeft <= 0){
+        stopTimer();
+        finishTimedRound();
+      }
+    }, 1000);
+  }
+
+  function renderTimedQuestion(){
+    var list = getQuizWords();
+    var current = nextWeightedWord(list);
+    if(!current) return;
+    var f = fields();
+    var area = document.getElementById("quizArea");
+    var head = '<div class="quiz-card">' +
+      '<div class="quiz-sub">Tezkor test · qolgan vaqt: ' + Math.max(0, timedSecondsLeft) + 's</div>' +
+      '<div class="quiz-word">' + escapeHtml(current[f.q]) + '</div>' +
+      '<div class="quiz-sub" style="margin-top:8px;">tarjimasini tanlang</div>' +
+      '</div>';
+    area.innerHTML = head + '<div class="options" id="optionsGrid"></div>';
+    var opts = buildOptions(current, f);
+    var grid = document.getElementById("optionsGrid");
+    opts.forEach(function(opt){
+      var b = document.createElement("div");
+      b.className = "option";
+      b.textContent = opt;
+      b.addEventListener("click", function(){ handleAnswer(b, opt, current, f); });
+      grid.appendChild(b);
+    });
+  }
+
+  function finishTimedRound(){
+    var area = document.getElementById("quizArea");
+    area.innerHTML =
+      '<div class="quiz-card quiz-result">' +
+        '<div class="big-score">' + quizScore + '</div>' +
+        '<p>' + quizAttempted + ' ta savoldan ' + quizScore + ' tasi to\'g\'ri (30 soniyada)</p>' +
+        '<button class="btn btn-primary" id="restartQuiz" style="margin-top:14px;">Qayta boshlash</button>' +
+      '</div>';
+    document.getElementById("restartQuiz").addEventListener("click", startQuizRound);
+  }
+
+  function updateSrs(word, correct){
+    if(!word.srs) word.srs = freshSrs();
+    word.srs.seen++;
+    word.srs.lastSeen = Date.now();
+    if(correct){ word.srs.correct++; word.srs.level = Math.min(4, word.srs.level + 1); }
+    else { word.srs.wrong++; word.srs.level = 0; }
+    saveWords();
+  }
+
+  // ---------- Stats ----------
+  function renderStats(){
+    document.getElementById("statTotal").textContent = words.length;
+    var mastered = words.filter(function(w){ return w.srs && w.srs.level >= 3; }).length;
+    document.getElementById("statMastered").textContent = mastered;
+    var totalSeen = 0, totalCorrect = 0;
+    words.forEach(function(w){
+      if(w.srs){ totalSeen += w.srs.seen || 0; totalCorrect += w.srs.correct || 0; }
+    });
+    var acc = totalSeen ? Math.round((totalCorrect / totalSeen) * 100) : 0;
+    document.getElementById("statAccuracy").textContent = acc + "%";
+    document.getElementById("statStreakBig").textContent = streakData.count || 0;
+
+    var cats = {};
+    words.forEach(function(w){
+      var c = w.category || "Umumiy";
+      if(!cats[c]) cats[c] = {count:0, levelSum:0};
+      cats[c].count++;
+      cats[c].levelSum += (w.srs ? w.srs.level : 0);
+    });
+    var box = document.getElementById("catBreakdown");
+    var keys = Object.keys(cats);
+    if(!keys.length){
+      box.innerHTML = '<div class="list-empty">Hozircha ma\'lumot yo\'q</div>';
+      return;
+    }
+    box.innerHTML = keys.sort().map(function(c){
+      var info = cats[c];
+      var pct = info.count ? Math.round((info.levelSum / (info.count * 4)) * 100) : 0;
+      return '<div class="cat-row">' +
+        '<span class="name">' + escapeHtml(c) + '</span>' +
+        '<span class="bar"><span style="width:' + pct + '%;"></span></span>' +
+        '<span class="count">' + info.count + ' ta · ' + pct + '%</span>' +
+        '</div>';
+    }).join("");
+  }
+
+  // ---------- Admin lock ----------
+  function showAdminGate(){
+    if(adminUnlocked){
+      document.getElementById("lockScreen").style.display = "none";
+      document.getElementById("adminPanel").style.display = "block";
+      renderWordList();
+      updateCloudStatusUI();
+    } else {
+      document.getElementById("lockScreen").style.display = "flex";
+      document.getElementById("adminPanel").style.display = "none";
+      document.getElementById("lockError").textContent = "";
+      var inp = document.getElementById("lockInput");
+      inp.value = "";
+      setTimeout(function(){ inp.focus(); }, 50);
+    }
+  }
+  document.getElementById("lockForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var val = document.getElementById("lockInput").value.trim();
+    if(val === ADMIN_CODE){
+      adminUnlocked = true;
+      showAdminGate();
+      showToast("Boshqaruv paneli ochildi");
+    } else {
+      document.getElementById("lockError").textContent = "Kod noto'g'ri. Qayta urinib ko'ring.";
+      document.getElementById("lockInput").value = "";
+      document.getElementById("lockInput").focus();
+    }
+  });
+  document.getElementById("lockOutBtn").addEventListener("click", function(){
+    adminUnlocked = false;
+    showAdminGate();
+  });
+  document.getElementById("initCloudBtn").addEventListener("click", function(){
+    if(getCloudId()){ showToast("Bulut allaqachon ulangan"); return; }
+    initCloudStorage();
+  });
+  document.getElementById("copyCloudIdBtn").addEventListener("click", function(){
+    var inp = document.getElementById("cloudIdValue");
+    inp.select();
+    try{ document.execCommand("copy"); showToast("Nusxalandi"); }catch(e){}
+  });
+
+  // ---------- Admin: list / edit / delete ----------
+  function afterWordsChanged(){
+    saveWords();
+    populateCategorySelects();
+    pushCloudWords();
+  }
+
+  function renderWordList(){
+    var list = document.getElementById("wordList");
+    document.getElementById("wordCount").textContent = words.length + " ta so'z";
+    if(!words.length){
+      list.innerHTML = '<div class="list-empty">Hozircha so\'zlar yo\'q. Yuqoridan qo\'shing.</div>';
+      return;
+    }
+    list.innerHTML = "";
+    words.forEach(function(w, idx){
+      var row = document.createElement("div");
+      row.className = "word-row";
+      row.dataset.idx = idx;
+      renderRowView(row, w, idx);
+      list.appendChild(row);
+    });
+  }
+
+  function renderRowView(row, w, idx){
+    row.innerHTML =
+      '<div class="pair">' +
+        (w.image ? '<img class="thumb" src="' + escapeHtml(w.image) + '" onerror="this.style.display=\'none\'">' : '') +
+        '<span><b>' + escapeHtml(w.uz) + '</b><span class="arrow">→</span>' + escapeHtml(w.en) + '<span class="tag">' + escapeHtml(w.category || "Umumiy") + '</span></span>' +
+      '</div>' +
+      '<div class="row-actions">' +
+        '<button class="mini edit-btn" data-act="edit">Tahrirlash</button>' +
+        '<button class="mini del" data-act="del">O\'chirish</button>' +
+      '</div>';
+    row.querySelector('[data-act="edit"]').addEventListener("click", function(){ renderRowEdit(row, w, idx); });
+    row.querySelector('[data-act="del"]').addEventListener("click", function(){
+      words.splice(idx, 1);
+      afterWordsChanged();
+      renderWordList();
+      showToast("So'z o'chirildi");
+    });
+  }
+
+  function renderRowEdit(row, w, idx){
+    row.innerHTML =
+      '<div class="edit-row">' +
+        '<input type="text" class="e-uz" value="' + escapeHtml(w.uz) + '" placeholder="O\'zbekcha">' +
+        '<input type="text" class="e-en" value="' + escapeHtml(w.en) + '" placeholder="Inglizcha">' +
+        '<input type="text" class="e-cat" value="' + escapeHtml(w.category || "") + '" placeholder="Toifa">' +
+        '<input type="text" class="e-ipa" value="' + escapeHtml(w.ipa || "") + '" placeholder="IPA">' +
+        '<input type="text" class="e-img" value="' + escapeHtml(w.image || "") + '" placeholder="Rasm URL">' +
+        '<button class="btn btn-primary" data-act="save" style="padding:8px 14px;">Saqlash</button>' +
+        '<button class="btn btn-ghost" data-act="cancel" style="padding:8px 14px;">Bekor qilish</button>' +
+      '</div>';
+    row.querySelector('[data-act="save"]').addEventListener("click", function(){
+      var uz = row.querySelector(".e-uz").value.trim();
+      var en = row.querySelector(".e-en").value.trim();
+      var cat = row.querySelector(".e-cat").value.trim() || "Umumiy";
+      var ipa = row.querySelector(".e-ipa").value.trim();
+      var img = row.querySelector(".e-img").value.trim();
+      if(!uz || !en){ showToast("So'z va tarjima bo'sh bo'lmasligi kerak"); return; }
+      words[idx].uz = uz; words[idx].en = en; words[idx].category = cat; words[idx].ipa = ipa; words[idx].image = img;
+      afterWordsChanged();
+      renderWordList();
+      showToast("O'zgarishlar saqlandi");
+    });
+    row.querySelector('[data-act="cancel"]').addEventListener("click", function(){ renderWordList(); });
+  }
+
+  document.getElementById("addWordBtn").addEventListener("click", function(){
+    var uzEl = document.getElementById("inputUz");
+    var enEl = document.getElementById("inputEn");
+    var catEl = document.getElementById("inputCategory");
+    var ipaEl = document.getElementById("inputIpa");
+    var imgEl = document.getElementById("inputImage");
+    var uz = uzEl.value.trim();
+    var en = enEl.value.trim();
+    var cat = catEl.value.trim() || "Umumiy";
+    var ipa = ipaEl.value.trim();
+    var img = imgEl.value.trim();
+    if(!uz || !en){ showToast("Ikkala maydonni ham to'ldiring"); return; }
+    words.push({id: genId(), uz: uz, en: en, category: cat, image: img, ipa: ipa, srs: freshSrs()});
+    afterWordsChanged();
+    uzEl.value = ""; enEl.value = ""; catEl.value = ""; ipaEl.value = ""; imgEl.value = "";
+    uzEl.focus();
+    renderWordList();
+    showToast("Qo'shildi: " + uz + " → " + en);
+  });
+  document.getElementById("inputEn").addEventListener("keydown", function(e){ if(e.key === "Enter") document.getElementById("addWordBtn").click(); });
+  document.getElementById("inputUz").addEventListener("keydown", function(e){ if(e.key === "Enter") document.getElementById("inputEn").focus(); });
+
+  document.getElementById("resetDefaultBtn").addEventListener("click", function(){
+    if(confirm("Ro'yxat boshlang'ich so'zlarga qaytariladi. Davom etasizmi?")){
+      words = DEFAULT_WORDS.map(migrateWord);
+      afterWordsChanged();
+      renderWordList();
+      showToast("Boshlang'ich ro'yxat tiklandi");
+    }
+  });
+  document.getElementById("clearAllBtn").addEventListener("click", function(){
+    if(confirm("Barcha so'zlarni o'chirmoqchimisiz? Bu amalni bekor qilib bo'lmaydi.")){
+      words = [];
+      afterWordsChanged();
+      renderWordList();
+      showToast("Hammasi o'chirildi");
+    }
+  });
+
+  // ---------- CSV import / export ----------
+  function importLines(text){
+    var lines = text.split(/\r?\n/).map(function(l){ return l.trim(); }).filter(Boolean);
+    var added = 0;
+    lines.forEach(function(line){
+      var parts = line.split(",").map(function(p){ return p.trim(); });
+      if(parts.length >= 2 && parts[0] && parts[1]){
+        words.push({
+          id: genId(), uz: parts[0], en: parts[1],
+          category: parts[2] || "Umumiy", ipa: parts[3] || "", image: parts[4] || "", srs: freshSrs()
+        });
+        added++;
+      }
+    });
+    if(added){
+      afterWordsChanged();
+      renderWordList();
+      showToast(added + " ta so'z import qilindi");
+    } else {
+      showToast("Hech qanday to'g'ri qator topilmadi");
+    }
+  }
+  document.getElementById("importBtn").addEventListener("click", function(){
+    var text = document.getElementById("importText").value;
+    if(!text.trim()){ showToast("Avval matn kiriting"); return; }
+    importLines(text);
+    document.getElementById("importText").value = "";
+  });
+  document.getElementById("importFile").addEventListener("change", function(e){
+    var file = e.target.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev){ importLines(String(ev.target.result)); };
+    reader.readAsText(file);
+    e.target.value = "";
+  });
+  document.getElementById("exportBtn").addEventListener("click", function(){
+    if(!words.length){ showToast("Eksport qilish uchun so'z yo'q"); return; }
+    var lines = words.map(function(w){
+      return [w.uz, w.en, w.category || "Umumiy", w.ipa || "", w.image || ""].map(function(v){
+        return v.indexOf(",") >= 0 ? '"' + v.replace(/"/g,'""') + '"' : v;
+      }).join(",");
+    });
+    var csv = "uzbekcha,inglizcha,toifa,ipa,rasm\n" + lines.join("\n");
+    var blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = "sozlar.csv";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast("CSV fayl yuklab olindi");
+  });
+
+  // ---------- Theme ----------
+  document.getElementById("themeToggle").addEventListener("click", function(){
+    var current = document.body.getAttribute("data-theme");
+    applyTheme(current === "dark" ? "light" : "dark");
+  });
+
+  // ---------- Init ----------
+  loadTheme();
+  loadWords();
+  ensureBookVocab();
+  loadMissed();
+  updateStreak();
+  populateCategorySelects();
+  showBookGrid();
+  if(getCloudId()){
+    fetchCloudWords(function(){
+      populateCategorySelects();
+      showBookGrid();
+    });
+  }
+
+  document.getElementById("creatorBtn").addEventListener("click", function(){
+    document.getElementById("creatorOverlay").classList.add("show");
+  });
+  document.getElementById("creatorClose").addEventListener("click", function(){
+    document.getElementById("creatorOverlay").classList.remove("show");
+  });
+  document.getElementById("creatorOverlay").addEventListener("click", function(e){
+    if(e.target === this) this.classList.remove("show");
+  });
+})();
+</script>
+</body>
+</html>
